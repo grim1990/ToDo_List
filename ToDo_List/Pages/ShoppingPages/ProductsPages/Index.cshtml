@@ -1,5 +1,5 @@
 ﻿@page
-@model ToDo_List.Pages.ShoppingPages.GroceriesPages.IndexModel
+@model ToDo_List.Pages.ShoppingPages.ProductsPages.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -14,28 +14,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Groceries[0].GroceryName)
+                @Html.DisplayNameFor(model => model.Products[0].ProductName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Groceries[0].GroceryAmount)
+                @Html.DisplayNameFor(model => model.Products[0].ProductAmount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Groceries[0].GroceryPrice)
+                @Html.DisplayNameFor(model => model.Products[0].ProductPrice)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Groceries) {
+@foreach (var item in Model.Products) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.GroceryName)
+                @Html.DisplayFor(modelItem => item.ProductName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GroceryAmount)
+                @Html.DisplayFor(modelItem => item.ProductAmount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GroceryPrice)
+                @Html.DisplayFor(modelItem => item.ProductPrice)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

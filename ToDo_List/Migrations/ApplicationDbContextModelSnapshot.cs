@@ -228,6 +228,9 @@ namespace ToDo_List.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Loundry")
                         .HasColumnType("TEXT");
 
@@ -241,20 +244,20 @@ namespace ToDo_List.Migrations
                     b.ToTable("Chores");
                 });
 
-            modelBuilder.Entity("ToDo_List.Entieties.Groceries", b =>
+            modelBuilder.Entity("ToDo_List.Entieties.Products", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("GroceryAmount")
+                    b.Property<int>("ProductAmount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("GroceryName")
+                    b.Property<string>("ProductName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<float>("GroceryPrice")
+                    b.Property<float>("ProductPrice")
                         .HasColumnType("REAL");
 
                     b.Property<int>("ShoppingId")
@@ -264,33 +267,7 @@ namespace ToDo_List.Migrations
 
                     b.HasIndex("ShoppingId");
 
-                    b.ToTable("Groceries");
-                });
-
-            modelBuilder.Entity("ToDo_List.Entieties.OtherProducts", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("OtherProductsAmount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("OtherProductsName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<float>("OtherProductsPrice")
-                        .HasColumnType("REAL");
-
-                    b.Property<int>("ShoppingId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ShoppingId");
-
-                    b.ToTable("OtherProducts");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("ToDo_List.Entieties.Shopping", b =>
@@ -299,11 +276,15 @@ namespace ToDo_List.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("GroceriesId")
+                    b.Property<bool>("IsCompleted")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("OtherProductsId")
+                    b.Property<int?>("ProductsId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("ShoppingListName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ToDoId")
                         .HasColumnType("INTEGER");
@@ -323,6 +304,13 @@ namespace ToDo_List.Migrations
 
                     b.Property<int?>("ChoresId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("ShoppingId")
                         .HasColumnType("INTEGER");
@@ -424,19 +412,10 @@ namespace ToDo_List.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ToDo_List.Entieties.Groceries", b =>
+            modelBuilder.Entity("ToDo_List.Entieties.Products", b =>
                 {
                     b.HasOne("ToDo_List.Entieties.Shopping", null)
-                        .WithMany("Groceries")
-                        .HasForeignKey("ShoppingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ToDo_List.Entieties.OtherProducts", b =>
-                {
-                    b.HasOne("ToDo_List.Entieties.Shopping", null)
-                        .WithMany("OtherProducts")
+                        .WithMany("Products")
                         .HasForeignKey("ShoppingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -462,9 +441,7 @@ namespace ToDo_List.Migrations
 
             modelBuilder.Entity("ToDo_List.Entieties.Shopping", b =>
                 {
-                    b.Navigation("Groceries");
-
-                    b.Navigation("OtherProducts");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("ToDo_List.Entieties.ToDo", b =>

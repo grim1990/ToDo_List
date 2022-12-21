@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using ToDo_List.Data;
 using ToDo_List.Entieties;
 
-namespace ToDo_List.Pages.ShoppingPages.GroceriesPages
+namespace ToDo_List.Pages.ShoppingPages.ProductsPages
 {
     public class EditModel : PageModel
     {
@@ -21,21 +21,21 @@ namespace ToDo_List.Pages.ShoppingPages.GroceriesPages
         }
 
         [BindProperty]
-        public Groceries Groceries { get; set; } = default!;
+        public Products Products { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Groceries == null)
+            if (id == null || _context.Products == null)
             {
                 return NotFound();
             }
 
-            var groceries =  await _context.Groceries.FirstOrDefaultAsync(m => m.Id == id);
-            if (groceries == null)
+            var products =  await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
+            if (products == null)
             {
                 return NotFound();
             }
-            Groceries = groceries;
+            Products = products;
             return Page();
         }
 
@@ -48,7 +48,7 @@ namespace ToDo_List.Pages.ShoppingPages.GroceriesPages
                 return Page();
             }
 
-            _context.Attach(Groceries).State = EntityState.Modified;
+            _context.Attach(Products).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace ToDo_List.Pages.ShoppingPages.GroceriesPages
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!GroceriesExists(Groceries.Id))
+                if (!ProductsExists(Products.Id))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace ToDo_List.Pages.ShoppingPages.GroceriesPages
             return RedirectToPage("./Index");
         }
 
-        private bool GroceriesExists(int id)
+        private bool ProductsExists(int id)
         {
-          return _context.Groceries.Any(e => e.Id == id);
+          return _context.Products.Any(e => e.Id == id);
         }
     }
 }

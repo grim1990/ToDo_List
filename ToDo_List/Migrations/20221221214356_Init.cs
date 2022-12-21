@@ -49,6 +49,23 @@ namespace ToDo_List.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ToDos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    ShoppingId = table.Column<int>(type: "INTEGER", nullable: true),
+                    ChoresId = table.Column<int>(type: "INTEGER", nullable: true),
+                    WorkId = table.Column<int>(type: "INTEGER", nullable: true),
+                    IsCompleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ToDos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -154,6 +171,97 @@ namespace ToDo_List.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Chores",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Cleaning = table.Column<string>(type: "TEXT", nullable: true),
+                    Loundry = table.Column<string>(type: "TEXT", nullable: true),
+                    Cooking = table.Column<string>(type: "TEXT", nullable: true),
+                    IsCompleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ToDoId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Chores", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Chores_ToDos_ToDoId",
+                        column: x => x.ToDoId,
+                        principalTable: "ToDos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Shoppings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ShoppingListName = table.Column<string>(type: "TEXT", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ProductsId = table.Column<int>(type: "INTEGER", nullable: true),
+                    ToDoId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Shoppings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Shoppings_ToDos_ToDoId",
+                        column: x => x.ToDoId,
+                        principalTable: "ToDos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Works",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    WorkName = table.Column<string>(type: "TEXT", nullable: false),
+                    StartDateTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    EndDateTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ToDoId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Works", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Works_ToDos_ToDoId",
+                        column: x => x.ToDoId,
+                        principalTable: "ToDos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ProductName = table.Column<string>(type: "TEXT", nullable: false),
+                    ProductAmount = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductPrice = table.Column<float>(type: "REAL", nullable: false),
+                    ShoppingId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Shoppings_ShoppingId",
+                        column: x => x.ShoppingId,
+                        principalTable: "Shoppings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -190,6 +298,26 @@ namespace ToDo_List.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Chores_ToDoId",
+                table: "Chores",
+                column: "ToDoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ShoppingId",
+                table: "Products",
+                column: "ShoppingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Shoppings_ToDoId",
+                table: "Shoppings",
+                column: "ToDoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Works_ToDoId",
+                table: "Works",
+                column: "ToDoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -210,10 +338,25 @@ namespace ToDo_List.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Chores");
+
+            migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Works");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Shoppings");
+
+            migrationBuilder.DropTable(
+                name: "ToDos");
         }
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ToDo_List.Data;
 using ToDo_List.Entieties;
 
-namespace ToDo_List.Pages.ShoppingPages.GroceriesPages
+namespace ToDo_List.Pages.ShoppingPages.ProductsPages
 {
     public class CreateModel : PageModel
     {
@@ -25,7 +25,7 @@ namespace ToDo_List.Pages.ShoppingPages.GroceriesPages
         }
 
         [BindProperty]
-        public Groceries Groceries { get; set; }
+        public Products Products { get; set; }
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
@@ -36,7 +36,7 @@ namespace ToDo_List.Pages.ShoppingPages.GroceriesPages
                 return Page();
             }
 
-            _context.Groceries.Add(Groceries);
+            _context.Products.Add(Products);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

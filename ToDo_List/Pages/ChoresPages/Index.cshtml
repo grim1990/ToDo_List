@@ -23,6 +23,9 @@
                 @Html.DisplayNameFor(model => model.Chores[0].Cooking)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Chores[0].IsCompleted)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Chores[0].DateTime)
             </th>
             <th></th>
@@ -39,6 +42,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Cooking)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCompleted)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateTime)

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ToDo_List.Data;
 using ToDo_List.Entieties;
 
-namespace ToDo_List.Pages.ShoppingPages.GroceriesPages
+namespace ToDo_List.Pages.ShoppingPages.ProductsPages
 {
     public class DeleteModel : PageModel
     {
@@ -20,40 +20,40 @@ namespace ToDo_List.Pages.ShoppingPages.GroceriesPages
         }
 
         [BindProperty]
-      public Groceries Groceries { get; set; }
+      public Products Products { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Groceries == null)
+            if (id == null || _context.Products == null)
             {
                 return NotFound();
             }
 
-            var groceries = await _context.Groceries.FirstOrDefaultAsync(m => m.Id == id);
+            var products = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (groceries == null)
+            if (products == null)
             {
                 return NotFound();
             }
             else 
             {
-                Groceries = groceries;
+                Products = products;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Groceries == null)
+            if (id == null || _context.Products == null)
             {
                 return NotFound();
             }
-            var groceries = await _context.Groceries.FindAsync(id);
+            var products = await _context.Products.FindAsync(id);
 
-            if (groceries != null)
+            if (products != null)
             {
-                Groceries = groceries;
-                _context.Groceries.Remove(Groceries);
+                Products = products;
+                _context.Products.Remove(Products);
                 await _context.SaveChangesAsync();
             }
 

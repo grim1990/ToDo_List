@@ -11,13 +11,13 @@ using ToDo_List.Data;
 namespace ToDo_List.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221215113938_Init")]
+    [Migration("20221221214356_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.11");
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.12");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -215,6 +215,145 @@ namespace ToDo_List.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ToDo_List.Entieties.Chores", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Cleaning")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Cooking")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Loundry")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ToDoId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ToDoId");
+
+                    b.ToTable("Chores");
+                });
+
+            modelBuilder.Entity("ToDo_List.Entieties.Products", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductAmount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("ProductPrice")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("ShoppingId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShoppingId");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("ToDo_List.Entieties.Shopping", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ProductsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ShoppingListName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ToDoId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ToDoId");
+
+                    b.ToTable("Shoppings");
+                });
+
+            modelBuilder.Entity("ToDo_List.Entieties.ToDo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ChoresId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("ShoppingId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("WorkId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ToDos");
+                });
+
+            modelBuilder.Entity("ToDo_List.Entieties.Work", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("EndDateTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("StartDateTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ToDoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("WorkName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ToDoId");
+
+                    b.ToTable("Works");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -264,6 +403,56 @@ namespace ToDo_List.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ToDo_List.Entieties.Chores", b =>
+                {
+                    b.HasOne("ToDo_List.Entieties.ToDo", null)
+                        .WithMany("Chores")
+                        .HasForeignKey("ToDoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ToDo_List.Entieties.Products", b =>
+                {
+                    b.HasOne("ToDo_List.Entieties.Shopping", null)
+                        .WithMany("Products")
+                        .HasForeignKey("ShoppingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ToDo_List.Entieties.Shopping", b =>
+                {
+                    b.HasOne("ToDo_List.Entieties.ToDo", null)
+                        .WithMany("Shopping")
+                        .HasForeignKey("ToDoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ToDo_List.Entieties.Work", b =>
+                {
+                    b.HasOne("ToDo_List.Entieties.ToDo", null)
+                        .WithMany("Work")
+                        .HasForeignKey("ToDoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ToDo_List.Entieties.Shopping", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ToDo_List.Entieties.ToDo", b =>
+                {
+                    b.Navigation("Chores");
+
+                    b.Navigation("Shopping");
+
+                    b.Navigation("Work");
                 });
 #pragma warning restore 612, 618
         }

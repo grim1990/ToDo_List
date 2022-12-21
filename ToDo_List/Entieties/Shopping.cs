@@ -3,10 +3,10 @@
 	public class Shopping
 	{
 		public int Id { get; set; }
-		public List<Groceries>? Groceries { get; set; }
-		public int? GroceriesId { get; set; }
-		public List<OtherProducts>? OtherProducts { get; set; }
-		public int? OtherProductsId { get; set; }
+		public string ShoppingListName { get; set; }
+		public bool IsCompleted { get; set; }
+		public List<Products>? Products { get; set; }
+		public int? ProductsId { get; set; }
 		public int ToDoId { get; set; }
 	}
 }

@@ -14,6 +14,11 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="ToDo.Name" class="control-label"></label>
+                <input asp-for="ToDo.Name" class="form-control" />
+                <span asp-validation-for="ToDo.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="ToDo.ShoppingId" class="control-label"></label>
                 <input asp-for="ToDo.ShoppingId" class="form-control" />
                 <span asp-validation-for="ToDo.ShoppingId" class="text-danger"></span>
@@ -27,6 +32,11 @@
                 <label asp-for="ToDo.WorkId" class="control-label"></label>
                 <input asp-for="ToDo.WorkId" class="form-control" />
                 <span asp-validation-for="ToDo.WorkId" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ToDo.IsCompleted" /> @Html.DisplayNameFor(model => model.ToDo.IsCompleted)
+                </label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

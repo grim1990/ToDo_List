@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ToDo_List.Data;
 using ToDo_List.Entieties;
 
-namespace ToDo_List.Pages.ShoppingPages.OtherProductsPages
+namespace ToDo_List.Pages.ShoppingPages.ProductsPages
 {
     public class IndexModel : PageModel
     {
@@ -19,13 +19,13 @@ namespace ToDo_List.Pages.ShoppingPages.OtherProductsPages
             _context = context;
         }
 
-        public IList<OtherProducts> OtherProducts { get;set; } = default!;
+        public IList<Products> Products { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.OtherProducts != null)
+            if (_context.Products != null)
             {
-                OtherProducts = await _context.OtherProducts.ToListAsync();
+                Products = await _context.Products.ToListAsync();
             }
         }
     }
