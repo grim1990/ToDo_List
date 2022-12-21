@@ -1,0 +1,37 @@
+﻿@page
+@model ToDo_List.Pages.ToDoPages.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ToDo</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ToDo.ShoppingId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ToDo.ShoppingId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ToDo.ChoresId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ToDo.ChoresId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ToDo.WorkId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ToDo.WorkId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.ToDo?.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

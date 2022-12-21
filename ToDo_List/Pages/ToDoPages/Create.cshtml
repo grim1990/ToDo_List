@@ -1,0 +1,44 @@
+﻿@page
+@model ToDo_List.Pages.ToDoPages.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ToDo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ToDo.ShoppingId" class="control-label"></label>
+                <input asp-for="ToDo.ShoppingId" class="form-control" />
+                <span asp-validation-for="ToDo.ShoppingId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToDo.ChoresId" class="control-label"></label>
+                <input asp-for="ToDo.ChoresId" class="form-control" />
+                <span asp-validation-for="ToDo.ChoresId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToDo.WorkId" class="control-label"></label>
+                <input asp-for="ToDo.WorkId" class="form-control" />
+                <span asp-validation-for="ToDo.WorkId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
