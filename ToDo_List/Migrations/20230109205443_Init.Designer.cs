@@ -11,8 +11,8 @@ using ToDo_List.Data;
 namespace ToDo_List.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230109200202_init")]
-    partial class init
+    [Migration("20230109205443_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -246,11 +246,14 @@ namespace ToDo_List.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool?>("IsCompleted")
+                    b.Property<bool>("IsCompleted")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
@@ -261,6 +264,8 @@ namespace ToDo_List.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("ToDos");
                 });
@@ -325,6 +330,17 @@ namespace ToDo_List.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ToDo_List.Entieties.ToDo", b =>
+                {
+                    b.HasOne("ToDo_List.Entieties.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

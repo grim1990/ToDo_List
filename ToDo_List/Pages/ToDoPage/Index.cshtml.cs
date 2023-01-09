@@ -25,7 +25,8 @@ namespace ToDo_List.Pages.ToDoPage
         {
             if (_context.ToDos != null)
             {
-                ToDo = await _context.ToDos.ToListAsync();
+                ToDo = await _context.ToDos
+                .Include(t => t.Category).ToListAsync();
             }
         }
     }

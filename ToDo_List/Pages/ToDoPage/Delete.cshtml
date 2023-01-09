@@ -31,6 +31,12 @@
             @Html.DisplayFor(model => model.ToDo.IsCompleted)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ToDo.Category)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ToDo.Category.Id)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ToDo.Priority)
         </dt>
         <dd class="col-sm-10">

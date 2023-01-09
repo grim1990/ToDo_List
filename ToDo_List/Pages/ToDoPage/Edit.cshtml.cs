@@ -36,6 +36,7 @@ namespace ToDo_List.Pages.ToDoPage
                 return NotFound();
             }
             ToDo = todo;
+           ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id");
             return Page();
         }
 

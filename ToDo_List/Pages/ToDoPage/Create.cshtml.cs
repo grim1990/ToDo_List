@@ -21,17 +21,18 @@ namespace ToDo_List.Pages.ToDoPage
 
         public IActionResult OnGet()
         {
+        ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id");
             return Page();
         }
 
         [BindProperty]
         public ToDo ToDo { get; set; }
-
+        
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+          if (!ModelState.IsValid)
             {
                 return Page();
             }
