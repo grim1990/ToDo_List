@@ -35,11 +35,24 @@ namespace ToDo_List.Pages.ToDoPages
             {
                 return Page();
             }
-
             _context.ToDos.Add(ToDo);
+            
             await _context.SaveChangesAsync();
+            var option = Request.Form["option"];
 
-            return RedirectToPage("./Index");
+            if (option == "Chores")
+            {
+                return RedirectToPage("/ChoresPages/Create", "OnPostAsync", new { toDoId = ToDo.Id });
+            }
+            else if (option == "Work")
+            {
+                return RedirectToPage("/WorkPages/Create", "OnPostAsync", new { toDoId = ToDo.Id });
+            }
+            else 
+            {
+                return RedirectToPage("/ShoppingPages/Create", "OnPostAsync", new { toDoId = ToDo.Id });
+            }
         }
+        
     }
 }

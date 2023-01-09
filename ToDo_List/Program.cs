@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using ToDo_List.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,9 +13,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options => { 
+	options.SignIn.RequireConfirmedAccount = true; })
 	.AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options => 
+{
+	options.Conventions.AllowAnonymousToPage("/Privacy");
+	//options.Conventions.AuthorizeFolder("/");
+});
 
 var app = builder.Build();
 

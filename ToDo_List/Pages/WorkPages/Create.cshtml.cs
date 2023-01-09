@@ -19,27 +19,41 @@ namespace ToDo_List.Pages.WorkPages
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int toDoId)
         {
+            var ToDo = _context.ToDos.Find(toDoId);
+            if (ToDo == null)
+            {
+                return NotFound();
+            }
+            if (ToDo.WorkId != null||ToDo.ChoresId!=null||ToDo.ShoppingId!=null)
+            {
+                return NotFound();
+            }
             return Page();
         }
 
         [BindProperty]
         public Work Work { get; set; }
-        
+        public ToDo ToDo { get; set; }
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int toDoId)
         {
           if (!ModelState.IsValid)
             {
                 return Page();
             }
+            Work.ToDoId = toDoId;
 
             _context.Works.Add(Work);
             await _context.SaveChangesAsync();
+            var todo = await _context.ToDos.FindAsync(toDoId);
+            todo.WorkId = Work.Id;
+            await _context.SaveChangesAsync();  
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/ToDoPages/Create");
         }
     }
 }

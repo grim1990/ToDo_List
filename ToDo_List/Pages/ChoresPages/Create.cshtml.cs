@@ -19,8 +19,17 @@ namespace ToDo_List.Pages.ChoresPages
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public  IActionResult OnGet(int toDoId)
         {
+            var  ToDo =  _context.ToDos.Find(toDoId);
+            if (ToDo == null)
+            {
+                return NotFound();
+            }
+            if (ToDo.WorkId != null || ToDo.ChoresId != null || ToDo.ShoppingId != null)
+            {
+                return NotFound();
+            }
             return Page();
         }
 
@@ -29,14 +38,17 @@ namespace ToDo_List.Pages.ChoresPages
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int toDoId)
         {
           if (!ModelState.IsValid)
             {
                 return Page();
             }
-
+            Chores.ToDoId = toDoId;
             _context.Chores.Add(Chores);
+            await _context.SaveChangesAsync();
+            var todo = await _context.ToDos.FindAsync(toDoId);
+            todo.ChoresId = Chores.Id;
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

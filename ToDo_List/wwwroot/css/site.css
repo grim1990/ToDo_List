@@ -16,3 +16,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+.naviImage {
+    max-width: 10%;
+    float:left;
+    align-content:center;
+    margin: 10px 0px 10px 0px;
+}
