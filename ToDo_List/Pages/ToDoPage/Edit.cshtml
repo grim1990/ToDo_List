@@ -29,6 +29,11 @@
                 <select asp-for="ToDo.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
                 <span asp-validation-for="ToDo.CategoryId" class="text-danger"></span>
             </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ToDo.IsCompleted" /> @Html.DisplayNameFor(model => model.ToDo.IsCompleted)
+                </label>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
