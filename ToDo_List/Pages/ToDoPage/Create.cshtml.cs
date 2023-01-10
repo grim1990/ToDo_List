@@ -24,29 +24,17 @@ namespace ToDo_List.Pages.ToDoPage
         public IActionResult OnGet()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id");
-            //ViewData["SelectedCategoryName"] = new SelectList(_context.Categories, "Name", "Name");
+            ViewData["CategoryName"] = new SelectList(_context.Categories, "Name", "Name");
             return Page();
         }
 
-
         [BindProperty]
         public ToDo ToDo { get; set; }
-        public string SelectedCategoryName { get; set; }
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+
         public async Task<IActionResult> OnPostAsync()
         {
-            var category = _context.Categories
-    .FirstOrDefault(a => a.Id==ToDo.CategoryId); /*a => a.Name == SelectedCategoryName*/
-            if (category == null) return Page();
-            ToDo.Category = category;
-            
-            var context = new ValidationContext(ToDo);
-            var validationResults = new List<ValidationResult>();
-            bool isValid = Validator.TryValidateObject(ToDo, context, validationResults);
-            if (!isValid)
-            {
-                return Page();
-            }
+            //_context.Categories.Where(c => c.Name == ToDo.CategoryName);
+
             _context.ToDos.Add(ToDo);
             await _context.SaveChangesAsync();
 

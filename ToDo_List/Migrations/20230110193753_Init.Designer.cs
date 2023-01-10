@@ -11,8 +11,8 @@ using ToDo_List.Data;
 namespace ToDo_List.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230110171919_Entity")]
-    partial class Entity
+    [Migration("20230110193753_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -248,6 +248,10 @@ namespace ToDo_List.Migrations
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("INTEGER");
