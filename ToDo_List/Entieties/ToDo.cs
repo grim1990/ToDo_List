@@ -8,7 +8,8 @@ namespace ToDo_List.Entieties
         public string Name { get; set; }
         public int Priority { get; set; }
         public bool IsCompleted { get; set; }
+        public string CategoryName { get; set; }
         public int CategoryId { get; set; }
-        public  Category Category { get; set; }
+        public Category Category { get; set; }
     }
 }
