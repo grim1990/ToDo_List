@@ -36,7 +36,7 @@ namespace ToDo_List.Pages.CategoryPage
                 return Page();
             }
 
-            _context.Category.Add(Category);
+            _context.Categories.Add(Category);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

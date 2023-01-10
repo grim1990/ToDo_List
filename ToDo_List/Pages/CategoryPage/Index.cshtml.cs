@@ -23,9 +23,9 @@ namespace ToDo_List.Pages.CategoryPage
 
         public async Task OnGetAsync()
         {
-            if (_context.Category != null)
+            if (_context.Categories != null)
             {
-                Category = await _context.Category.ToListAsync();
+                Category = await _context.Categories.ToListAsync();
             }
         }
     }

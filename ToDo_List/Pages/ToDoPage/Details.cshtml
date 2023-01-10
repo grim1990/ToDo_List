@@ -18,28 +18,16 @@
             @Html.DisplayFor(model => model.ToDo.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ToDo.Description)
+            @Html.DisplayNameFor(model => model.ToDo.Priority)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ToDo.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ToDo.IsCompleted)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ToDo.IsCompleted)
+            @Html.DisplayFor(model => model.ToDo.Priority)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ToDo.Category)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ToDo.Category.Id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ToDo.Priority)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ToDo.Priority)
         </dd>
     </dl>
 </div>

@@ -235,7 +235,7 @@ namespace ToDo_List.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("ToDo_List.Entieties.ToDo", b =>
@@ -245,13 +245,6 @@ namespace ToDo_List.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("CategoryId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsCompleted")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
@@ -333,12 +326,17 @@ namespace ToDo_List.Migrations
             modelBuilder.Entity("ToDo_List.Entieties.ToDo", b =>
                 {
                     b.HasOne("ToDo_List.Entieties.Category", "Category")
-                        .WithMany()
+                        .WithMany("ToDos")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("ToDo_List.Entieties.Category", b =>
+                {
+                    b.Navigation("ToDos");
                 });
 #pragma warning restore 612, 618
         }

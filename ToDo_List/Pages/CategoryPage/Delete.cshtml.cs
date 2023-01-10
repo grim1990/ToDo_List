@@ -24,12 +24,12 @@ namespace ToDo_List.Pages.CategoryPage
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Category == null)
+            if (id == null || _context.Categories == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Category.FirstOrDefaultAsync(m => m.Id == id);
+            var category = await _context.Categories.FirstOrDefaultAsync(m => m.Id == id);
 
             if (category == null)
             {
@@ -44,16 +44,16 @@ namespace ToDo_List.Pages.CategoryPage
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Category == null)
+            if (id == null || _context.Categories == null)
             {
                 return NotFound();
             }
-            var category = await _context.Category.FindAsync(id);
+            var category = await _context.Categories.FindAsync(id);
 
             if (category != null)
             {
                 Category = category;
-                _context.Category.Remove(Category);
+                _context.Categories.Remove(Category);
                 await _context.SaveChangesAsync();
             }
 
