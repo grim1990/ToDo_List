@@ -1,20 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using ToDo_List.Entieties;
 
 namespace ToDo_List.Pages
 {
 	public class IndexModel : PageModel
 	{
-		private readonly ILogger<IndexModel> _logger;
+		private readonly ToDo_List.Data.ApplicationDbContext _db;
 
-		public IndexModel(ILogger<IndexModel> logger)
+		public IndexModel(ToDo_List.Data.ApplicationDbContext db)
 		{
-			_logger = logger;
+			_db = db;
 		}
 
-		public void OnGet()
-		{
+		public IList<Category> Categories { get; set; }
 
+		public async Task OnGet()
+		{
+			if (_db.Categories != null)
+			{
+				Categories = _db.Categories.ToList();
+			}
 		}
+
 	}
 }

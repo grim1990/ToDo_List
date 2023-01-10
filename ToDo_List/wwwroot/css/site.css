@@ -14,5 +14,99 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #ededed;
+}
+
+
+.checkbox-round {
+    width: 1.3em;
+    height: 1.3em;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.checkbox-round:checked {
+    background-color: gray;
+}
+
+.index-page {
+    display: flex;
+    align-items: flex-start;
+}
+
+
+.categories {
+    width: 30%;
+    background-color: #fff;
+    margin-right: 16px;
+    border-radius: 16px;
+}
+
+.category {
+    border-bottom: solid 1px #dedede;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.category:first-of-type {
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.category:last-of-type {
+    border-bottom: none;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+.category:hover {
+    background-color: #f2f2f2;
+}
+
+.category__description {
+    margin: 0;
+    color: #727272;
+}
+
+.category h5 {
+    margin: 0;
+}
+
+.todos {
+    width: 70%;
+    background: #ffffff;
+    padding: 16px 32px;
+}
+
+.todo {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.todo__container {
+    width: 100%;
+    padding-left: 8px;
+}
+
+.todo__info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.todo__info p {
+    margin: 0;
+    padding 0;
+    color: #727272;
+}
+
+.todo__text {
+    margin: 0;
 }

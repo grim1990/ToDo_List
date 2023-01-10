@@ -4,7 +4,50 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="index-page">
+        <div class="categories">
+            @foreach (var item in Model.Categories) {
+            <div class="category">
+                <h5 class="category__title">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </h5>
+                <p class="category__description">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </p>
+            </div>
+            }
+        </div>
+        <div class="todos">
+            <h2 class="todos__category"> Reminders </h2>
+            <div class="todo">
+                <input type="checkbox" class="checkbox-round" />
+                <div class="todo__container">
+                    <h6 class="todo__text"> cos do zrobienia </h6>
+                    <div class="todo__info">
+                        <p class="todo__due-date"> 26.10.2023 </p>
+                        <p class="todo__importane"> importance: 3 </p>
+                    </div>
+                </div>
+            </div>
+            <div class="todo">
+                <input type="checkbox" class="checkbox-round" />
+                <div class="todo__container">
+                    <h6 class="todo__text"> cos do zrobienia </h6>
+                    <div class="todo__info">
+                        <p class="todo__due-date"> 26.10.2023 </p>
+                        <p class="todo__importane"> importance: 3 </p>
+                    </div>
+                </div>
+            </div>
+            <div class="todo">
+                <input type="checkbox" class="checkbox-round" />
+                <div class="todo__container">
+                    <h6 class="todo__text"> cos do zrobienia </h6>
+                    <div class="todo__info">
+                        <p class="todo__due-date"> 26.10.2023 </p>
+                        <p class="todo__importane"> importance: 3 </p>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
