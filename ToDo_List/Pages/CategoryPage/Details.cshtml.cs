@@ -19,7 +19,7 @@ namespace ToDo_List.Pages.CategoryPage
             _context = context;
         }
 
-      public Category Category { get; set; }
+        public Category Category { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -33,7 +33,7 @@ namespace ToDo_List.Pages.CategoryPage
             {
                 return NotFound();
             }
-            else 
+            else
             {
                 Category = category;
             }
