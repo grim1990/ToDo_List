@@ -7,6 +7,7 @@ namespace ToDo_List.Entieties
 	{
         public int Id { get; set; }
         public string Name { get; set; }
+        [Range(1,5)]
         public int Priority { get; set; }
         [DisplayName("Is Completed?")]
         public bool IsCompleted { get; set; }
