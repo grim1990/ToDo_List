@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ToDo_List.Data;
 using ToDo_List.Entieties;
 
 namespace ToDo_List.Pages.CategoryPage
 {
     public class DeleteModel : PageModel
     {
-        private readonly ToDo_List.Data.ApplicationDbContext _context;
+        private readonly Data.ApplicationDbContext _context;
 
-        public DeleteModel(ToDo_List.Data.ApplicationDbContext context)
+        public DeleteModel(Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-      public Category Category { get; set; }
+        public Category Category { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -35,10 +30,11 @@ namespace ToDo_List.Pages.CategoryPage
             {
                 return NotFound();
             }
-            else 
+            else
             {
                 Category = category;
             }
+
             return Page();
         }
 

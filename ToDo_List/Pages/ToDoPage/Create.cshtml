@@ -23,21 +23,10 @@
                 <input asp-for="ToDo.Priority" class="form-control" />
                 <span asp-validation-for="ToDo.Priority" class="text-danger"></span>
             </div>
-@*            <div class="form-group">
-                <label asp-for="ToDo.CategoryId" class="control-label"></label>
-                <select asp-for="ToDo.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-                <span asp-validation-for="ToDo.CategoryId" class="text-danger"></span>
-            </div>*@
             <div class="form-group">
                 <label asp-for="ToDo.CategoryName" class="control-label"></label>
                 <select asp-for="ToDo.CategoryName" class="form-control" asp-items="ViewBag.CategoryName"></select>
                 <span asp-validation-for="ToDo.CategoryName" class="text-danger" />
-            </div>
-            
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="ToDo.IsCompleted" /> @Html.DisplayNameFor(model => model.ToDo.IsCompleted)
-                </label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

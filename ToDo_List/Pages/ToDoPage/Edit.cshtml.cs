@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ToDo_List.Data;
 using ToDo_List.Entieties;
 
 namespace ToDo_List.Pages.ToDoPage
 {
     public class EditModel : PageModel
     {
-        private readonly ToDo_List.Data.ApplicationDbContext _context;
+        private readonly Data.ApplicationDbContext _context;
 
-        public EditModel(ToDo_List.Data.ApplicationDbContext context)
+        public EditModel(Data.ApplicationDbContext context)
         {
             _context = context;
         }
@@ -40,16 +35,16 @@ namespace ToDo_List.Pages.ToDoPage
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            ModelState.Clear();
+            //ModelState.Clear();
+
             var category = _context.Categories.First(c => c.Name == ToDo.CategoryName);
             var catId = _context.Categories.Select(i => i.Id).ToList();
             ToDo.Category = category;
             ToDo.CategoryId = category.Id;
-            if (!TryValidateModel(ToDo) || !catId.Contains(ToDo.CategoryId))
+
+            if (!ModelState.IsValid)
             {
                 return RedirectToPage();
             }
