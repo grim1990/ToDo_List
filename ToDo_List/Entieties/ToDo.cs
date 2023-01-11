@@ -10,6 +10,6 @@ namespace ToDo_List.Entieties
         public bool IsCompleted { get; set; }
         public string CategoryName { get; set; }
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
     }
 }

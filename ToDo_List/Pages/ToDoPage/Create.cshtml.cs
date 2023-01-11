@@ -23,7 +23,6 @@ namespace ToDo_List.Pages.ToDoPage
         
         public IActionResult OnGet()
         {
-            //ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id");
             ViewData["CategoryName"] = new SelectList(_context.Categories, "Name", "Name");
             return Page();
         }
@@ -33,15 +32,16 @@ namespace ToDo_List.Pages.ToDoPage
 
         public async Task<IActionResult> OnPostAsync()
         {
-            ModelState.Clear();
             var category =_context.Categories.First(c => c.Name == ToDo.CategoryName);
             var catId = _context.Categories.Select(i => i.Id).ToList();
             ToDo.Category = category;
             ToDo.CategoryId = category.Id;
-            if (!TryValidateModel(ToDo)||!catId.Contains(ToDo.CategoryId))
+
+            if (!ModelState.IsValid)
             {
                 return RedirectToPage();
             }
+
             _context.ToDos.Add(ToDo);
             await _context.SaveChangesAsync();
 
