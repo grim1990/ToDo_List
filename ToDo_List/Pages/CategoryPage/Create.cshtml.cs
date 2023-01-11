@@ -31,10 +31,11 @@ namespace ToDo_List.Pages.CategoryPage
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            var exist = _context.Categories.Any(n => n.Name == Category.Name);
+            if (exist) ModelState.AddModelError("Category.Name", "Kategoria o takiej nazwie już istnieje.");
+            
+            if (!ModelState.IsValid) return Page();
+            
 
             _context.Categories.Add(Category);
             await _context.SaveChangesAsync();
