@@ -39,6 +39,7 @@ namespace ToDo_List.Pages.ToDoPage
             {
                 ToDo = todo;
             }
+
             return Page();
         }
 
@@ -48,6 +49,7 @@ namespace ToDo_List.Pages.ToDoPage
             {
                 return NotFound();
             }
+
             var todo = await _context.ToDos.FindAsync(id);
 
             if (todo != null)

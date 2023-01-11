@@ -28,7 +28,8 @@ namespace ToDo_List.Pages.ToDoPage
                 return NotFound();
             }
 
-            var todo = await _context.ToDos.FirstOrDefaultAsync(m => m.Id == id);
+            var todo = await _context.ToDos.FirstOrDefaultAsync(t => t.Id == id);
+
             if (todo == null)
             {
                 return NotFound();
@@ -37,6 +38,7 @@ namespace ToDo_List.Pages.ToDoPage
             {
                 ToDo = todo;
             }
+
             return Page();
         }
     }

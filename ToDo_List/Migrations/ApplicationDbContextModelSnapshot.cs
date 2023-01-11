@@ -235,7 +235,7 @@ namespace ToDo_List.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("ToDo_List.Entieties.ToDo", b =>
@@ -265,7 +265,7 @@ namespace ToDo_List.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("ToDos");
+                    b.ToTable("ToDos", (string)null);
                 });
 
             modelBuilder.Entity("ToDo_List.Entieties.User+ApplicationUser", b =>
