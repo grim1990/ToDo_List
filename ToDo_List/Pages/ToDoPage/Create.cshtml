@@ -33,6 +33,7 @@
                 <select asp-for="ToDo.CategoryName" class="form-control" asp-items="ViewBag.CategoryName"></select>
                 <span asp-validation-for="ToDo.CategoryName" class="text-danger" />
             </div>
+            
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="ToDo.IsCompleted" /> @Html.DisplayNameFor(model => model.ToDo.IsCompleted)
