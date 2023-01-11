@@ -53,6 +53,9 @@ body {
     border-bottom: solid 1px #dedede;
     padding: 8px;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
 }
 
 .category:first-of-type {
@@ -76,6 +79,7 @@ body {
 }
 
 .category h5 {
+    color: #000;
     margin: 0;
 }
 
