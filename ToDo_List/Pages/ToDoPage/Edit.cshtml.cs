@@ -36,7 +36,7 @@ namespace ToDo_List.Pages.ToDoPage
                 return NotFound();
             }
             ToDo = todo;
-           ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id");
+            ViewData["CategoryName"] = new SelectList(_context.Categories, "Name", "Name");
             return Page();
         }
 
@@ -44,9 +44,14 @@ namespace ToDo_List.Pages.ToDoPage
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            ModelState.Clear();
+            var category = _context.Categories.First(c => c.Name == ToDo.CategoryName);
+            var catId = _context.Categories.Select(i => i.Id).ToList();
+            ToDo.Category = category;
+            ToDo.CategoryId = category.Id;
+            if (!TryValidateModel(ToDo) || !catId.Contains(ToDo.CategoryId))
             {
-                return Page();
+                return RedirectToPage();
             }
 
             _context.Attach(ToDo).State = EntityState.Modified;

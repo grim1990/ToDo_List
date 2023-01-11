@@ -38,7 +38,6 @@ namespace ToDo_List.Pages.ToDoPage
             var catId = _context.Categories.Select(i => i.Id).ToList();
             ToDo.Category = category;
             ToDo.CategoryId = category.Id;
-            var a = TryValidateModel(ToDo);
             if (!TryValidateModel(ToDo)||!catId.Contains(ToDo.CategoryId))
             {
                 return RedirectToPage();
