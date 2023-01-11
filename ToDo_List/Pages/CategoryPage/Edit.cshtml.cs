@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ToDo_List.Data;
 using ToDo_List.Entieties;
 
 namespace ToDo_List.Pages.CategoryPage
 {
     public class EditModel : PageModel
     {
-        private readonly ToDo_List.Data.ApplicationDbContext _context;
+        private readonly Data.ApplicationDbContext _context;
 
-        public EditModel(ToDo_List.Data.ApplicationDbContext context)
+        public EditModel(Data.ApplicationDbContext context)
         {
             _context = context;
         }
@@ -31,16 +25,16 @@ namespace ToDo_List.Pages.CategoryPage
             }
 
             var category = await _context.Categories.FirstOrDefaultAsync(m => m.Id == id);
+
             if (category == null)
             {
                 return NotFound();
             }
+
             Category = category;
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
