@@ -20,17 +20,21 @@
 	</div>
 	<div class="todos">
 		<h2 class="todos__category"> @Model.Category.Name </h2>
-		@foreach (var item in Model.Todos)
-		{
-			<div class="todo">
-				@Html.CheckBoxFor(modelItem => item.IsCompleted, new{ @class="checkbox-round" })
-				<div class="todo__container">
-					<h6 class="todo__text">@Html.DisplayFor(modelItem => item.Name)</h6>
-					<div class="todo__info">
-						<p class="todo__importane"> importance: @Html.DisplayFor(modelItem => item.Priority) </p>
+			@foreach (var item in Model.Todos)
+			{
+				<div class="todo">
+					@if (item.IsCompleted) {
+						<input type="checkbox" data-todo-id="@item.Id" onclick="updateTodo(this)" class="checkbox-round" checked/>
+					} else {
+						<input type="checkbox" data-todo-id="@item.Id" onclick="updateTodo(this)" class="checkbox-round"/>
+					}
+					<div class="todo__container">
+						<h6 class="todo__text">@Html.DisplayFor(modelItem => item.Name)</h6>
+						<div class="todo__info">
+							<p class="todo__importane"> importance: @Html.DisplayFor(modelItem => item.Priority) </p>
+						</div>
 					</div>
 				</div>
-			</div>
-		}
+			}
 	</div>
 </div>

@@ -26,4 +26,23 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Pages\api.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>api.txt</LastGenOutput>
+    </None>
+    <None Update="Pages\api.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>api.tt</DependentUpon>
+    </None>
+    <None Update="Pages\TextTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
 </Project>
