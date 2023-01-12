@@ -1,39 +1,36 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+	ViewData["Title"] = "Home page";
 }
 
 <div class="index-page">
-        <div class="categories">
-            @foreach (var item in Model.Categories) {
-            
-            <a href="/?id=@Html.DisplayFor(modelItem => item.Id)" class="category">
-                <h5 class="category__title">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </h5>
-                <p class="category__description">
-                    @Html.DisplayFor(modelItem => item.Description)
-                </p>
-            </a>
-            }
-        </div>
-        <div class="todos">
-            <h2 class="todos__category"> @Model.Category.Name </h2>
-            @foreach (var item in Model.Todos) {
-            <div class="todo">
-                @if (item.IsCompleted) {
-                <input type="checkbox" class="checkbox-round" checked/>
-                } else {
-                <input type="checkbox" class="checkbox-round"/>
-                }
-                <div class="todo__container">
-                    <h6 class="todo__text">@Html.DisplayFor(modelItem => item.Name)</h6>
-                    <div class="todo__info">
-                        <p class="todo__importane"> importance: @Html.DisplayFor(modelItem => item.Priority) </p>
-                    </div>
-                </div>
-            </div>
-            }
-        </div>
+	<div class="categories">
+		@foreach (var item in Model.Categories)
+		{
+			<a href="/?id=@Html.DisplayFor(modelItem => item.Id)" class="category">
+				<h5 class="category__title">
+					@Html.DisplayFor(modelItem => item.Name)
+				</h5>
+				<p class="category__description">
+					@Html.DisplayFor(modelItem => item.Description)
+				</p>
+			</a>
+		}
+	</div>
+	<div class="todos">
+		<h2 class="todos__category"> @Model.Category.Name </h2>
+		@foreach (var item in Model.Todos)
+		{
+			<div class="todo">
+				@Html.CheckBoxFor(modelItem => item.IsCompleted, new{ @class="checkbox-round" })
+				<div class="todo__container">
+					<h6 class="todo__text">@Html.DisplayFor(modelItem => item.Name)</h6>
+					<div class="todo__info">
+						<p class="todo__importane"> importance: @Html.DisplayFor(modelItem => item.Priority) </p>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
 </div>

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ToDo_List.Entieties;
 
@@ -7,9 +6,9 @@ namespace ToDo_List.Pages
 {
 	public class IndexModel : PageModel
 	{
-		private readonly ToDo_List.Data.ApplicationDbContext _db;
+		private readonly Data.ApplicationDbContext _db;
 
-		public IndexModel(ToDo_List.Data.ApplicationDbContext db)
+		public IndexModel(Data.ApplicationDbContext db)
 		{
 			_db = db;
 		}
@@ -18,7 +17,6 @@ namespace ToDo_List.Pages
 		public IList<ToDo> Todos { get; set; }
 		public Category Category { get; set; }
 		public String Dupa { get; set; }
-
 		public async Task OnGet(int? id)
 		{
 			// Get selected category
@@ -36,7 +34,6 @@ namespace ToDo_List.Pages
 
 			// set id to current category
 			id = Category.Id;
-           
 
 			if (_db.Categories != null)
 			{
@@ -44,6 +41,5 @@ namespace ToDo_List.Pages
 				Todos = _db.ToDos.Where(x => x.CategoryId == id).ToList();
 			}
 		}
-
 	}
 }
