@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ToDo_List.Data;
+using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,8 @@ builder.Services.AddRazorPages(options =>
 	//options.Conventions.AuthorizeFolder("/");
 
 });
+builder.Logging.ClearProviders();
+builder.Host.UseNLog();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
