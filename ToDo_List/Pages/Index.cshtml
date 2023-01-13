@@ -15,8 +15,17 @@
 				<p class="category__description">
 					@Html.DisplayFor(modelItem => item.Description)
 				</p>
+				<div class="dropdown">
+					<a href="#" class="dropdown-button">...</a>
+					<ul class="dropdown-content">
+					<li><a asp-page="CategoryPage/Edit" asp-route-id="@item.Id">Edytuj</a></li>
+					<li><a asp-page="CategoryPage/Delete" asp-route-id="@item.Id">Usuń</a></li>
+					</ul>
+				</div>
 			</a>
 		}
+		<br>
+		<a href="/CategoryPage/Create" class="round-button">+</a>
 	</div>
 	<div class="todos">
 		<h2 class="todos__category"> @Model.Category.Name </h2>
@@ -33,8 +42,17 @@
 						<div class="todo__info">
 							<p class="todo__importane"> importance: @Html.DisplayFor(modelItem => item.Priority) </p>
 						</div>
+						<div class="dropdown">
+						  <a href="#" class="dropdown-button">...</a>
+						  <ul class="dropdown-content">
+							<li><a asp-page="ToDoPage/Edit" asp-route-id="@item.Id">Edytuj</a></li>
+							<li><a asp-page="ToDoPage/Delete" asp-route-id="@item.Id">Usuń</a></li>
+						  </ul>
+						</div>
 					</div>
 				</div>
 			}
+			<br>
+		<a href="/ToDoPage/Create" class="round-button">+</a>
 	</div>
 </div>
