@@ -16,7 +16,6 @@ namespace ToDo_List.Pages
 		public IList<Category> Categories { get; set; }
 		public IList<ToDo> Todos { get; set; }
 		public Category Category { get; set; }
-		public String Dupa { get; set; }
 		public async Task OnGet(int? id)
 		{
 			// Get selected category

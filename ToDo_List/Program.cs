@@ -7,22 +7,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-// Add services to the container.
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 	options.UseSqlite(connectionString));
-
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 	.AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddRazorPages(options => 
+builder.Services.AddRazorPages(options =>
 {
 	//options.Conventions.AllowAnonymousToPage("/Privacy");
 	//options.Conventions.AuthorizeFolder("/");
-
 });
+
 builder.Logging.ClearProviders();
 builder.Host.UseNLog();
 var app = builder.Build();
@@ -49,6 +48,5 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
-
 
 app.Run();
