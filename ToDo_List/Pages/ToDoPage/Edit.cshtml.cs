@@ -9,10 +9,12 @@ namespace ToDo_List.Pages.ToDoPage
     public class EditModel : PageModel
     {
         private readonly Data.ApplicationDbContext _context;
+        private readonly ILogger<ToDoPage.DeleteModel> _logger;
 
-        public EditModel(Data.ApplicationDbContext context)
+        public EditModel(Data.ApplicationDbContext context, ILogger<ToDoPage.DeleteModel> logger)
         {
             _context = context;
+            _logger = logger;   
         }
 
         [BindProperty]
@@ -47,6 +49,8 @@ namespace ToDo_List.Pages.ToDoPage
             if (!ModelState.IsValid)
             {
                 return RedirectToPage();
+                _logger.LogError($"Editing ToDo with wrong data");
+
             }
 
             _context.Attach(ToDo).State = EntityState.Modified;
@@ -66,8 +70,10 @@ namespace ToDo_List.Pages.ToDoPage
                     throw;
                 }
             }
+            _logger.LogTrace($"Edited ToDo id= {ToDo.Id} with values name={ToDo.Name}, priority={ToDo.Priority} and category name= {ToDo.CategoryName}");
 
-            return RedirectToPage("./Index");
+
+            return RedirectToPage("/Index");
         }
 
         private bool ToDoExists(int id)

@@ -2,16 +2,19 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ToDo_List.Entieties;
+using NLog;
 
 namespace ToDo_List.Pages.CategoryPage
 {
     public class EditModel : PageModel
     {
         private readonly Data.ApplicationDbContext _context;
+        private readonly ILogger<CategoryPage.EditModel> _logger;
 
-        public EditModel(Data.ApplicationDbContext context)
+        public EditModel(Data.ApplicationDbContext context, ILogger<CategoryPage.EditModel> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         [BindProperty]
@@ -40,6 +43,8 @@ namespace ToDo_List.Pages.CategoryPage
             if (!ModelState.IsValid)
             {
                 return Page();
+                _logger.LogError($"Editing Category id= {Category.Id},incorrectly validated model ");
+
             }
 
             _context.Attach(Category).State = EntityState.Modified;
@@ -59,8 +64,9 @@ namespace ToDo_List.Pages.CategoryPage
                     throw;
                 }
             }
+            _logger.LogTrace($"Edited Category id= {Category.Id} with values name={Category.Name} and description={Category.Description}");
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Index");
         }
 
         private bool CategoryExists(int id)

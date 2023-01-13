@@ -8,10 +8,12 @@ namespace ToDo_List.Pages.ToDoPage
     public class DeleteModel : PageModel
     {
         private readonly Data.ApplicationDbContext _context;
+        private readonly ILogger<ToDoPage.DeleteModel> _logger;
 
-        public DeleteModel(Data.ApplicationDbContext context)
+        public DeleteModel(Data.ApplicationDbContext context, ILogger<ToDoPage.DeleteModel> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         [BindProperty]
@@ -52,9 +54,10 @@ namespace ToDo_List.Pages.ToDoPage
                 ToDo = todo;
                 _context.ToDos.Remove(ToDo);
                 await _context.SaveChangesAsync();
+                _logger.LogTrace($"Deleted ToDo with id= {ToDo.Id}");
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Index");
         }
     }
 }

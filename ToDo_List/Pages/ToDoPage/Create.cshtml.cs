@@ -8,10 +8,12 @@ namespace ToDo_List.Pages.ToDoPage
     public class CreateModel : PageModel
     {
         private readonly Data.ApplicationDbContext _context;
+        private readonly ILogger<ToDoPage.DeleteModel> _logger;
 
-        public CreateModel(Data.ApplicationDbContext context)
+        public CreateModel(Data.ApplicationDbContext context, ILogger<ToDoPage.DeleteModel> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public IActionResult OnGet()
@@ -33,12 +35,14 @@ namespace ToDo_List.Pages.ToDoPage
             if (!ModelState.IsValid)
             {
                 return RedirectToPage();
+                _logger.LogError($"Creating ToDo with wrong data");
             }
 
             _context.ToDos.Add(ToDo);
             await _context.SaveChangesAsync();
+            _logger.LogTrace($"Created new ToDo id= {ToDo.Id},with values name= {ToDo.Name}, priority= {ToDo.Priority} and category name= {ToDo.CategoryName}");
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Index");
         }
     }
 }
