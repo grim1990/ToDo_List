@@ -8,26 +8,28 @@
 	<div class="categories">
 		@foreach (var item in Model.Categories)
 		{
-			<a href="/?id=@Html.DisplayFor(modelItem => item.Id)" class="category">
-				<h5 class="category__title">
-					@Html.DisplayFor(modelItem => item.Name)
-				</h5>
-				<p class="category__description">
-					@Html.DisplayFor(modelItem => item.Description)
-				</p>
+			<div data-href="/?id=@Html.DisplayFor(modelItem => item.Id)" onclick="changeCategory(this)" class="category">
+				<div class="category__container">
+					<h5 class="category__title">
+						@Html.DisplayFor(modelItem => item.Name)
+					</h5>
+					<p class="category__description">
+						@Html.DisplayFor(modelItem => item.Description)
+					</p>
+				</div>
 				<div class="dropdown">
-					<a href="#" class="dropdown-button">...</a>
+					<p class="dropdown-button">...</p>
 					<ul class="dropdown-content">
-					<li><a asp-page="CategoryPage/Edit" asp-route-id="@item.Id">Edytuj</a></li>
-					<li><a asp-page="CategoryPage/Delete" asp-route-id="@item.Id">Usuń</a></li>
+						<li><a asp-page="CategoryPage/Edit" asp-route-id="@item.Id">Edytuj</a></li>
+						<li><a asp-page="CategoryPage/Delete" asp-route-id="@item.Id">Usuń</a></li>
 					</ul>
 				</div>
-			</a>
+			</div>
 		}
-		<br>
-		<a href="/CategoryPage/Create" class="round-button">+</a>
+		<a href="/CategoryPage/Create" class="cattegory__add">+</a>
 	</div>
 	<div class="todos">
+		<div class="todos__container">
 		<h2 class="todos__category"> @Model.Category.Name </h2>
 			@foreach (var item in Model.Todos)
 			{
@@ -42,17 +44,17 @@
 						<div class="todo__info">
 							<p class="todo__importane"> importance: @Html.DisplayFor(modelItem => item.Priority) </p>
 						</div>
-						<div class="dropdown">
-						  <a href="#" class="dropdown-button">...</a>
-						  <ul class="dropdown-content">
+					</div>
+					<div class="dropdown">
+						<p class="dropdown-button">...</p>
+						<ul class="dropdown-content">
 							<li><a asp-page="ToDoPage/Edit" asp-route-id="@item.Id">Edytuj</a></li>
 							<li><a asp-page="ToDoPage/Delete" asp-route-id="@item.Id">Usuń</a></li>
-						  </ul>
-						</div>
+						</ul>
 					</div>
 				</div>
 			}
-			<br>
-		<a href="/ToDoPage/Create" class="round-button">+</a>
+		</div>
+		<a href="/ToDoPage/Create" class="todo__add">+</a>
 	</div>
 </div>

@@ -37,8 +37,9 @@ namespace ToDo_List.Pages
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             if (_db.Categories != null)
 			{
-                Categories = _db.Categories.Where(u => u.CreatorGuid == userId).ToList();
-                Todos = _db.ToDos.Where(x => x.CategoryId == id).ToList();
+				Categories = _db.Categories.Where(u => u.CreatorGuid == userId).ToList();
+				// Categories = _db.Categories.ToList();
+				Todos = _db.ToDos.Where(x => x.CategoryId == id).ToList();
 			}
 		}
 	}

@@ -12,3 +12,8 @@ function updateTodo(el) {
         url: `api/${todoId}`,
     });
 }
+
+function changeCategory(el) {
+    let categoryHref = el.dataset.href;
+    location.href = categoryHref;
+}
