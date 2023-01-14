@@ -11,8 +11,8 @@ using ToDo_List.Data;
 namespace ToDo_List.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230113234309_ToDoWithCreatorId")]
-    partial class ToDoWithCreatorId
+    [Migration("20230114080627_CreatorToCategory")]
+    partial class CreatorToCategory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -227,6 +227,12 @@ namespace ToDo_List.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid>("CreatorGuid")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreatorId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -236,6 +242,8 @@ namespace ToDo_List.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
 
                     b.ToTable("Categories");
                 });
@@ -253,12 +261,6 @@ namespace ToDo_List.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("CreatorGuid")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreatorId")
-                        .HasColumnType("TEXT");
-
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("INTEGER");
 
@@ -272,8 +274,6 @@ namespace ToDo_List.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("CreatorId");
 
                     b.ToTable("ToDos");
                 });
@@ -340,6 +340,15 @@ namespace ToDo_List.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ToDo_List.Entieties.Category", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId");
+
+                    b.Navigation("Creator");
+                });
+
             modelBuilder.Entity("ToDo_List.Entieties.ToDo", b =>
                 {
                     b.HasOne("ToDo_List.Entieties.Category", "Category")
@@ -348,13 +357,7 @@ namespace ToDo_List.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorId");
-
                     b.Navigation("Category");
-
-                    b.Navigation("Creator");
                 });
 
             modelBuilder.Entity("ToDo_List.Entieties.Category", b =>

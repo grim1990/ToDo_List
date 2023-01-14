@@ -11,13 +11,13 @@ namespace ToDo_List.Pages.ToDoPage
     {
         private readonly Data.ApplicationDbContext _context;
         private readonly ILogger<ToDoPage.DeleteModel> _logger;
-        private readonly UserManager<IdentityUser> _userManager;
+     
 
-        public CreateModel(Data.ApplicationDbContext context, ILogger<ToDoPage.DeleteModel> logger, UserManager<IdentityUser> userManager )
+        public CreateModel(Data.ApplicationDbContext context, ILogger<ToDoPage.DeleteModel> logger )
         {
             _context = context;
             _logger = logger;
-            _userManager = userManager;
+     
         }
 
         public IActionResult OnGet()
@@ -35,11 +35,8 @@ namespace ToDo_List.Pages.ToDoPage
             var catId = _context.Categories.Select(i => i.Id).ToList();
             ToDo.Category = category;
             ToDo.CategoryId = category.Id;
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var user = await _userManager.FindByIdAsync(userId);
-            ToDo.Creator = user;
-            //ToDo.CreatorGuid = Guid.Parse(userId);
-            if (!ModelState.IsValid || ToDo.CreatorGuid== new Guid("{00000000-0000-0000-0000-000000000000}"))
+
+            if (!ModelState.IsValid )
             {
                 _logger.LogError($"Creating ToDo with wrong data");
                 return RedirectToPage();

@@ -16,7 +16,6 @@ namespace ToDo_List.Entieties
         public string CategoryName { get; set; }
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
-        public Guid CreatorGuid { get; set; }
-        public IdentityUser? Creator { get; set; }
+
     }
 }
