@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using ToDo_List.Entieties;
 
 namespace ToDo_List.Pages
@@ -33,11 +34,11 @@ namespace ToDo_List.Pages
 
 			// set id to current category
 			id = Category.Id;
-
-			if (_db.Categories != null)
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            if (_db.Categories != null)
 			{
-				Categories = _db.Categories.ToList();
-				Todos = _db.ToDos.Where(x => x.CategoryId == id).ToList();
+                Categories = _db.Categories.Where(u => u.CreatorGuid == userId).ToList();
+                Todos = _db.ToDos.Where(x => x.CategoryId == id).ToList();
 			}
 		}
 	}

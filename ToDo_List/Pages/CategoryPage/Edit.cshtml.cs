@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ToDo_List.Entieties;
 using NLog;
+using System.Security.Claims;
 
 namespace ToDo_List.Pages.CategoryPage
 {
@@ -40,10 +41,18 @@ namespace ToDo_List.Pages.CategoryPage
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            if (Category.CreatorGuid!=userId)
+            {
+                _logger.LogError($"Unauthorized attempt to edit category wiith id= {Category.Id} by user {userId}");
+                return RedirectToPage("/Index");
+                
+            }
             if (!ModelState.IsValid)
             {
-                return Page();
                 _logger.LogError($"Editing Category id= {Category.Id},incorrectly validated model ");
+                return Page();
+                
 
             }
 

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using NLog;
+using System.Security.Claims;
 using ToDo_List.Entieties;
 
 namespace ToDo_List.Pages.CategoryPage
@@ -10,12 +12,13 @@ namespace ToDo_List.Pages.CategoryPage
     {
         private readonly Data.ApplicationDbContext _context;
         private readonly ILogger<CategoryPage.DeleteModel> _logger;
+        private readonly UserManager<IdentityUser> _userManager;
 
-
-        public DeleteModel(Data.ApplicationDbContext context, ILogger<CategoryPage.DeleteModel> logger)
+        public DeleteModel(Data.ApplicationDbContext context, ILogger<CategoryPage.DeleteModel> logger, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _logger = logger;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -44,6 +47,7 @@ namespace ToDo_List.Pages.CategoryPage
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)); 
             if (id == null || _context.Categories == null)
             {
                 return NotFound();
@@ -51,6 +55,11 @@ namespace ToDo_List.Pages.CategoryPage
 
             }
             var category = await _context.Categories.FindAsync(id);
+            if (category.CreatorGuid!=userId)
+            {
+                return NotFound();
+                _logger.LogError($"Unauthorized attempt to remove category id= {category.Id} by user {userId}");
+            }
 
             if (category != null)
             {

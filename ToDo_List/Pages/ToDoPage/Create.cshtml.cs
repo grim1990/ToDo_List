@@ -22,7 +22,8 @@ namespace ToDo_List.Pages.ToDoPage
 
         public IActionResult OnGet()
         {
-            ViewData["CategoryName"] = new SelectList(_context.Categories, "Name", "Name");
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            ViewData["CategoryName"] = new SelectList(_context.Categories.Where(u=>u.CreatorGuid==userId), "Name", "Name");
             return Page();
         }
 
